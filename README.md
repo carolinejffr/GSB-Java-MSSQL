@@ -1,9 +1,8 @@
-# Bienvenue dans le projet GSB-JAVA 
-
-Ici vous retrouverez l'intégralité du projet GSB-java ainsi que la documentation java et SQL produite ! 
+# Bienvenue dans le projet GSB-JAVA version Microsoft SQL Server
 
 ## Utilisation du SQL :
-Il faut avoir un utilisateur root avec en mot de passe password.
+Prendre le script pour SQL Server. Le dépôt contient aussi le script MySQL pour référence.
+Il faut avoir un utilisateur admindb avec en mot de passe password.
 ## Dépendances :  
-Pour utilisateur la base de données, il faut avoir le mysql-connector-j.  
+Pour utilisateur la base de données, il faut avoir le mssql-jdbc (disponible dans le dossier lib).
 Pour utiliser les test unitaires, il faut avoir la bibliothèque JUnit.  

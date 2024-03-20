@@ -187,7 +187,7 @@ public class JIFVisiteur extends JInternalFrame {
      */
     public boolean verifMatricule() {
         boolean sortie = false;
-        String laRequete = "SELECT `MATRICULE` FROM gsbv2.`VISITEUR` WHERE `MATRICULE` LIKE '" + (String)(JTmatricule.getText()) + "'";
+        String laRequete = "EXEC verifMatricule @Matricule = '" + (String)(JTmatricule.getText()) + "'";
 
         try {
             String SQL = (ConnexionMySql.execReqSelection(laRequete)).toString();
@@ -279,7 +279,7 @@ public class JIFVisiteur extends JInternalFrame {
             NomUnit = "SWISS";
         }
         String laRequete = String.format(
-                "INSERT INTO `VISITEUR` (`MATRICULE`, `NOM`, `PRENOM`,`LOGIN`,`MDP`, `ADRESSE`, `CODEPOSTAL`, `DATEENTREE`, `CODEUNIT`,`NOMUNIT`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s','%s','%s','%s');",
+                "EXEC InsertVisiteur @Matricule = '%s', @Nom = '%s', @Prenom = '%s', @Login = '%s', @Mdp = '%s', @Adresse = '%s', @CodePostal = '%s', @DateEntree = '%s', @CodeUnit ='%s', @NomUnit = '%s'",
 
                 StringChamps.get(0), // Matricule
                 StringChamps.get(1), // Nom

@@ -225,7 +225,7 @@ public class JIFMedecin extends JInternalFrame  {
         
 
         // On créé la requête SQL. J'utilise String.format car je trouve ça plus lisible quand il y a autant de variables.
-        String laRequete = String.format("INSERT INTO `medecin` (`CODEMED`, `NOM`, `PRENOM`, `ADRESSE`, `CODEPOSTAL`, `TELEPHONE`, `POTENTIEL`, `SPECIALITE`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+        String laRequete = String.format("EXEC MedecinInsert @CodeMed = '%s', @Nom = '%s', @Prenom = '%s', @Adresse = '%s', @CodePostal = '%s', @Telephone = '%s', @Potentiel = '%s', @Specialite = '%s';",
          codeMed, StringChamps.get(0), StringChamps.get(1), StringChamps.get(2), leCodePostal, StringChamps.get(4), StringChamps.get(5), StringChamps.get(6));
         System.out.println(laRequete);
         int reqMaj = ConnexionMySql.execReqMaj(laRequete);

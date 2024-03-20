@@ -19,7 +19,7 @@ public class ConnexionTest {
 	 */
 	public static void main(String[] args) {
 		ResultSet resultat = ConnexionMySql
-				.execReqSelection("select * from LOCALITE");
+				.execReqSelection("EXEC ConnexionTest");
 		try {
 			while (resultat.next()) {
 				System.out.println(resultat.getString(1) + "  "

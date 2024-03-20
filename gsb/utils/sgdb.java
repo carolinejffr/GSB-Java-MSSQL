@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 public class sgdb 
 {
-
+    // Cette classe était utilisée pour MySQL mais on ne s'en sert pas
+    // Je la laisse pour référence
+    // - Caroline Jaffré
     public static void utiliserSgdb(String laRequete, boolean doitAfficherResultat) 
     {
         String url = "jdbc:mysql://127.0.0.1:8889/";

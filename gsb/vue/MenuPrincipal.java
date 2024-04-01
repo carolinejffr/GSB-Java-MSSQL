@@ -37,6 +37,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	protected JMenu mLocalites;
 	protected JMenu mStock;
 	protected JMenu mVisites;
+	protected JMenu mPodium;
 
 	/**
 	 * 
@@ -115,12 +116,19 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mL1.addActionListener(this); // installation d'un écouteur d'action
 		mLocalites.add(mL1);
 
+		mPodium = new JMenu("Podium");
+		JMenuItem mP1 = new JMenuItem("Consulter le Podium");
+		mP1.addActionListener(this); // installation d'un écouteur d'action
+		mPodium.add(mP1);
+
+
 		mbar.add(mMedecins);
 		mbar.add(mMedicaments);
 		mbar.add(mVisites);
 		mbar.add(mVisiteurs);
 		mbar.add(mStock);
 		mbar.add(mLocalites);
+		mbar.add(mPodium);
 		setJMenuBar(mbar);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -158,6 +166,10 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			else if (ChoixOption.equals("Stock Echantillons Visiteur")) 
 			{
 				ouvrirFenetre(new JIFStockVisiteur());
+			}
+			else if (ChoixOption.equals("Consulter le Podium"))
+			{
+				ouvrirFenetre(new JIFPodium());
 			}
       
 			else if (ChoixOption.equals("Ajout Visiteur")) 

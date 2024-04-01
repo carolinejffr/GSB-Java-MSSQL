@@ -66,6 +66,7 @@ BEGIN
     FROM STATISTIQUES S
     JOIN inserted I ON S.MATRICULE = I.MATRICULE;
 END;
+GO
 -- Trigger qui compte les stats du mois
 CREATE TRIGGER UpdateStatsMensuel
 ON VISITE
@@ -82,4 +83,12 @@ BEGIN
     FROM STATISTIQUES S
     JOIN inserted I ON S.MATRICULE = I.MATRICULE;
 END;
-
+GO
+-- Procedure qui donne le podium selon la taille souhaitée
+CREATE PROCEDURE GetPodium
+	@taillePodium INT
+AS
+BEGIN
+	SELECT TOP( @taillePodium) MATRICULE FROM STATISTIQUES ORDER BY MENSUEL DESC
+END
+GO

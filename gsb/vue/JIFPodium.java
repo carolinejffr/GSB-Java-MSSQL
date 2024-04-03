@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 import gsb.modele.Podium;

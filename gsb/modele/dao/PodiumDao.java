@@ -16,20 +16,27 @@ public class PodiumDao
         try
         {
             int rang = 0;
-            while (reqSelection.next())
+            if (reqSelection != null)
             {
-                // le visiteur n'est affiché que s'il a fait au moins une visite ce mois-ci
-                if (reqSelection.getInt(5) > 0)
+                while (reqSelection.next())
                 {
-                    rang++;
-                    Podium lignePodium = new Podium(String.valueOf(rang), reqSelection.getString(1), reqSelection.getString(2), reqSelection.getString(3), reqSelection.getInt(4), reqSelection.getInt(5));
-                    lePodium.add(lignePodium);
+                    // le visiteur n'est affiché que s'il a fait au moins une visite ce mois-ci
+                    if (reqSelection.getInt(5) > 0)
+                    {
+                        rang++;
+                        Podium lignePodium = new Podium(String.valueOf(rang), reqSelection.getString(1), reqSelection.getString(2), reqSelection.getString(3), reqSelection.getInt(4), reqSelection.getInt(5));
+                        lePodium.add(lignePodium);
+                    }
                 }
+            }
+            else
+            {
+                System.out.println("il n'y a pas encore eu de visite ce mois-ci.");
             }
         }
         catch(Exception e) 
         {
-			System.out.println("erreur reqSelection.next() pour EXEC GetPodium @taillePodium = 5");
+			System.out.println("erreur reqSelection.next() pour EXEC GetPodium @taillePodium = 10");
 			e.printStackTrace();
 		}
         ConnexionMySql.fermerConnexionBd();

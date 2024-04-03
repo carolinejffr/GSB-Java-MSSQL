@@ -1,27 +1,7 @@
 -- ======================================
 -- Règles de gestion du projet GSB
 -- Caroline Jaffré 2SIO
--- Règles choisies : RG4 et RG3
--- ======================================
--- RG4 Partie Visites : 
--- Ce qui est important c'est la périodicité des visites puisque l'on voit les praticiens tous les 6 à 8 mois. 
--- Ça nécessite de bien tenir à jour les dates de visite pour chaque praticien.
--- ======================================
--- On commence par modifier la table MEDECIN pour ajouter un champ qui tient compte de la dernière date de visite.
-ALTER TABLE MEDECIN ADD DERNIEREVISITE char(10) DEFAULT NULL;
-GO
--- Il faut mettre en place un trigger qui actualise cette nouvelle colonne à la création d'une nouvelle visite.
-CREATE TRIGGER MajDerniereVisite 
-ON VISITE
-AFTER INSERT
-AS
-BEGIN
-    UPDATE MEDECIN
-    SET DERNIEREVISITE = i.DATEVISITE
-    FROM MEDECIN m
-    INNER JOIN inserted i ON m.CODEMED = i.CODEMED;
-END;
-GO
+-- Règles choisies : RG3 et RG6
 -- ======================================
 -- RG3 Parties Visites :
 -- : On doit connaître précisément les dates de visites faites par les collaborateurs pour produire des statistiques quotidiennes, mensuelles…
@@ -92,5 +72,52 @@ CREATE PROCEDURE GetPodium
 AS
 BEGIN
 	SELECT TOP( @taillePodium) * FROM STATISTIQUES ORDER BY MENSUEL DESC
+END
+GO
+
+-- ======================================
+-- RG6 Parties Médecins :
+-- : une fois par an il est nécessaire de purger la base de données. 
+-- : A cette occasion les médecins qui ont pris leur retraite devront être archivés et les visites les concernant seront supprimées.
+-- ======================================
+-- On commence par ajouter une colomne RETRAITE pour savoir si le médecin est retraité ou non
+ALTER TABLE MEDECIN ADD RETRAITE BIT NOT NULL DEFAULT 0
+GO
+-- On créé une procédure stockée pour mettre un médecin en retraite
+CREATE PROCEDURE MettreEnRetraite
+	@codeMed CHAR(4)
+AS
+BEGIN
+	UPDATE MEDECIN
+	SET RETRAITE = 1
+	WHERE CODEMED = @codeMed
+END
+GO
+-- On créé une autre procédure qui supprime tous les médecins retraités
+CREATE PROCEDURE PurgeRetraite
+AS
+BEGIN
+	-- suppression des visites associées
+	DELETE FROM VISITE
+	WHERE CODEMED IN (SELECT CODEMED FROM MEDECIN WHERE RETRAITE = 1);
+	-- suppresion du médecin
+	DELETE FROM MEDECIN
+	WHERE RETRAITE = 1;
+END
+GO
+-- On a besoin d'autres procédures pour l'interface de mise à la retraite
+CREATE PROCEDURE ListeMedecinsActifs
+AS
+BEGIN
+	SELECT CODEMED, NOM, PRENOM FROM MEDECIN
+	WHERE RETRAITE = 0
+END
+GO
+
+CREATE PROCEDURE ListeRetraites
+AS
+BEGIN
+	SELECT CODEMED, NOM, PRENOM FROM MEDECIN
+	WHERE RETRAITE = 1
 END
 GO

@@ -38,6 +38,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	protected JMenu mStock;
 	protected JMenu mVisites;
 	protected JMenu mPodium;
+	protected JMenu mRetraite;
 
 	/**
 	 * 
@@ -121,6 +122,15 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mP1.addActionListener(this); // installation d'un écouteur d'action
 		mPodium.add(mP1);
 
+		mRetraite = new JMenu("Retraite");
+		JMenuItem mR1 = new JMenuItem("Mettre à la retraite");
+		JMenuItem mR2 = new JMenuItem("Purge retraite");
+		mR1.addActionListener(this);
+		mR2.addActionListener(this);
+		mRetraite.add(mR1);
+		mRetraite.add(mR2);
+
+
 
 		mbar.add(mMedecins);
 		mbar.add(mMedicaments);
@@ -129,6 +139,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mbar.add(mStock);
 		mbar.add(mLocalites);
 		mbar.add(mPodium);
+		mbar.add(mRetraite);
 		setJMenuBar(mbar);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,6 +181,14 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 			else if (ChoixOption.equals("Consulter le Podium"))
 			{
 				ouvrirFenetre(new JIFPodium());
+			}
+			else if (ChoixOption.equals("Mettre à la retraite"))
+			{
+				ouvrirFenetre(new JIFMedecinRetraite());
+			}
+			else if (ChoixOption.equals("Purge retraite"))
+			{
+				ouvrirFenetre(new JIFPurgeRetraite());
 			}
       
 			else if (ChoixOption.equals("Ajout Visiteur")) 

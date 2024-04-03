@@ -60,6 +60,6 @@ public class JIFPodium extends JInternalFrame
         p.add(pTable);
 
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setTitle("Consultation le Podium");
+		setTitle("Consultation du Podium");
     }
 }

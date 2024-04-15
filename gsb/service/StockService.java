@@ -15,7 +15,7 @@ public class StockService
     public static int ajoutStock(int quantite, String matricule, String depotLegal)
     {
         int codeRequete = 0;
-        int reqMaj = ConnexionMySql.execReqMaj("EXEC AjoutStock @Quantite ='" + quantite + "', @Matricule = '" + matricule + "', @DepotLegal = '" + depotLegal + "') ");
+        int reqMaj = ConnexionMySql.execReqMaj("EXEC AjoutStock @Quantite ='" + quantite + "', @Matricule = '" + matricule + "', @DepotLegal = '" + depotLegal + "' ");
 
 		ConnexionMySql.fermerConnexionBd();
         if (reqMaj == 1)
